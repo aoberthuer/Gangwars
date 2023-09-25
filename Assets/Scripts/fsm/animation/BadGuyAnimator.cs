@@ -35,5 +35,10 @@ namespace fsm.animation
             _animator.SetFloat(VELOCITY, 0f);
             _animator.SetTrigger(DIE);
         }
+        
+        public void AnimateTakeCoverState()
+        {
+            _animator.SetFloat(VELOCITY, 0f);
+        }
     }
 }

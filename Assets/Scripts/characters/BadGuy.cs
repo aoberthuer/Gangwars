@@ -12,6 +12,8 @@ namespace characters
     {
         [SerializeField] private Team _team;
         public Team Team => _team;
+        
+        [SerializeField] private AttackStrategy _attackStrategy;
 
         [SerializeField] private Projectile _projectilePrefab;
         [SerializeField] private Transform _projectilePrefabLaunchTransform;
@@ -39,13 +41,28 @@ namespace characters
 
         private void InitializeStateMachine()
         {
-            Dictionary<Type, BaseState> states = new Dictionary<Type, BaseState>()
+            Dictionary<Type, BaseState> states = null;
+            
+            if (_attackStrategy == AttackStrategy.ChaseAndAttack)
             {
-                {typeof(WanderState), new WanderState(this, _badGuyAnimator)},
-                {typeof(ChaseState), new ChaseState(this, _badGuyAnimator)},
-                {typeof(AttackState), new AttackState(this, _badGuyAnimator)},
-                {typeof(DeadState), new DeadState(this, _badGuyAnimator)}
-            };
+                states = new Dictionary<Type, BaseState>()
+                {
+                    {typeof(WanderState), new WanderState(this, _badGuyAnimator)},
+                    {typeof(ChaseState), new ChaseState(this, _badGuyAnimator, _attackStrategy)},
+                    {typeof(AttackState), new AttackState(this, _badGuyAnimator, _attackStrategy)},
+                    {typeof(DeadState), new DeadState(this, _badGuyAnimator)}
+                };
+            }
+            else if (_attackStrategy == AttackStrategy.TakeCoverAndAttack)
+            {
+                states = new Dictionary<Type, BaseState>()
+                {
+                    {typeof(TakeCoverState), new TakeCoverState(this, _badGuyAnimator, transform.position, transform.rotation)},
+                    {typeof(ChaseState), new ChaseState(this, _badGuyAnimator, _attackStrategy)},
+                    {typeof(AttackState), new AttackState(this, _badGuyAnimator, _attackStrategy)},
+                    {typeof(DeadState), new DeadState(this, _badGuyAnimator)}
+                };
+            }
 
             _stateMachine.SetStates(states);
         }

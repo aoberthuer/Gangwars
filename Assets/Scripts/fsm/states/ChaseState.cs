@@ -9,12 +9,16 @@ namespace fsm.states
     public class ChaseState : BaseState
     {
         private readonly BadGuy _badGuy;
-        private BadGuyAnimator _badGuyAnimator;
+        private readonly BadGuyAnimator _badGuyAnimator;
+        
+        private readonly AttackStrategy _attackStrategy;
 
-        public ChaseState(BadGuy badGuy, BadGuyAnimator badGuyAnimator) : base(badGuy.gameObject)
+        public ChaseState(BadGuy badGuy, BadGuyAnimator badGuyAnimator, AttackStrategy attackStrategy) : base(badGuy.gameObject)
         {
             _badGuy = badGuy;
             _badGuyAnimator = badGuyAnimator;
+
+            _attackStrategy = attackStrategy;
         }
 
         public override void EnterState()
@@ -28,7 +32,13 @@ namespace fsm.states
                 return typeof(DeadState);
 
             if (_badGuy.Target == null || _badGuy.IsDead)
-                return typeof(WanderState);
+            {
+                if(_attackStrategy == AttackStrategy.ChaseAndAttack)
+                    return typeof(WanderState);
+                
+                if (_attackStrategy == AttackStrategy.TakeCoverAndAttack)
+                    return typeof(TakeCoverState);
+            }
 
             _transform.LookAt(_badGuy.Target);
             _transform.Translate(Vector3.forward * (Time.deltaTime * GameSettings.BadGuyChaseSpeed));

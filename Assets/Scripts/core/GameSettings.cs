@@ -19,10 +19,10 @@ namespace core
         [SerializeField] private float _forwardLookAhead = 5f;
         public static float ForwardLookAhead => Instance._forwardLookAhead;
 
-        [SerializeField] private GameObject _projectilePrefab;
-        public static GameObject ProjectilePrefab => Instance._projectilePrefab;
+        [SerializeField] private float _returnedToCoverDistance = 0.5f;
+        public static double ReturnedToCoverDistance => Instance._returnedToCoverDistance;
 
-        public static GameSettings Instance { get; private set; }
+        private static GameSettings Instance { get; set; }
 
         private void Awake()
         {
