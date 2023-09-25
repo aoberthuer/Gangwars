@@ -46,7 +46,7 @@ namespace fsm.states
             float distanceToTarget = Vector3.Distance(_transform.position, _badGuy.Target.position);
             if (distanceToTarget <= GameSettings.AttackRange)
             {
-                Debug.Log($"Distance to target is {distanceToTarget}");
+                // Debug.Log($"Distance to target is {distanceToTarget}");
                 return typeof(AttackState);
             }
 

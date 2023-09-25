@@ -44,42 +44,48 @@ namespace fsm.states
 
             if (Vector3.Distance(_badGuy.transform.position, _initialPosition) > GameSettings.ReturnedToCoverDistance)
             {
+                _badGuyAnimator.AnimateChaseState();
+                
                 Vector3 targetDirection = _initialPosition - _badGuy.transform.position;
                 Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
                 _transform.rotation = Quaternion.Lerp(_transform.rotation, targetRotation, 0.2f);
                 _transform.Translate(Vector3.forward * (Time.deltaTime * GameSettings.BadGuyChaseSpeed));
+                return null;
+            }
+
+            _badGuyAnimator.AnimateTakeCoverState();
+            if (_transform.rotation != _initialRotation)
+            {
+                _transform.rotation = Quaternion.Lerp(_transform.rotation, _initialRotation, 0.2f);
             }
 
             return null;
         }
         
         
-        private readonly Quaternion _startingAngle = Quaternion.AngleAxis(-80, Vector3.up);
-        private readonly Quaternion _stepAngle = Quaternion.AngleAxis(4, Vector3.up);
+        private readonly Quaternion _startingAngle = Quaternion.AngleAxis(-60, Vector3.up);
+        private readonly Quaternion _stepAngle = Quaternion.AngleAxis(3, Vector3.up);
         
         private Transform CheckForAggro()
         {
             float aggroRadius = GameSettings.AggroRadius;
 
+            RaycastHit hit;
             var angle = _transform.rotation * _startingAngle;
             var direction = angle * Vector3.forward;
-            var pos = _transform.position;
+            var pos = _transform.position + Vector3.up;
             for (var i = 0; i < 40; i++)
             {
-                RaycastHit[] hits = Physics.RaycastAll(pos, direction, aggroRadius);
-                if (hits != null && hits.Length > 0)
+                if (Physics.Raycast(pos, direction, out hit, aggroRadius, GameSettings.BadGuysLayerMask))
                 {
-                    foreach (RaycastHit hit in hits)
+                    var badGuy = hit.collider.GetComponent<BadGuy>();
+                    if (badGuy != null && badGuy.Team != _gameObject.GetComponent<BadGuy>().Team && !badGuy.IsDead)
                     {
-                        BadGuy badGuy = hit.collider.GetComponent<BadGuy>();
-                        if (badGuy != null && badGuy.Team != _gameObject.GetComponent<BadGuy>().Team && !badGuy.IsDead)
-                        {
-                            Debug.DrawRay(pos, direction * hit.distance, Color.red);
-                            return badGuy.transform;
-                        }
-                            
-                        Debug.DrawRay(pos, direction * hit.distance, Color.yellow);
+                        Debug.DrawRay(pos, direction * hit.distance, Color.red);
+                        return badGuy.transform;
                     }
+
+                    Debug.DrawRay(pos, direction * hit.distance, Color.yellow);
                 }
                 else
                 {

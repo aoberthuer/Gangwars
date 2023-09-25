@@ -43,7 +43,7 @@ namespace fsm.states
             _attackReadyTimer -= Time.deltaTime;
             if (_attackReadyTimer <= 0f)
             {
-                Debug.Log("Attack!");
+                // Debug.Log("Attack!");
                 
                 _badGuy.FireWeapon();
                 _attackReadyTimer = 1f;

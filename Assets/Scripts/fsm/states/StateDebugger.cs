@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -23,9 +22,9 @@ namespace fsm.states
             }
         }
 
-        private void HandleStateChange(BaseState changedState)
+        private void HandleStateChange(BaseState changedState, string badGuyName)
         {
-            Debug.Log($"State has changed to {changedState}");
+            Debug.Log($"State has changed to {changedState} for {badGuyName}");
         }
     }
 }

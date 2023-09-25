@@ -21,6 +21,9 @@ namespace core
 
         [SerializeField] private float _returnedToCoverDistance = 0.5f;
         public static double ReturnedToCoverDistance => Instance._returnedToCoverDistance;
+        
+        [SerializeField] private LayerMask _badGuysLayerMask;
+        public static LayerMask BadGuysLayerMask => Instance._badGuysLayerMask;
 
         private static GameSettings Instance { get; set; }
 

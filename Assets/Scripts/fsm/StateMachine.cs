@@ -13,7 +13,7 @@ namespace fsm
         private BaseState _currentState;
         public BaseState CurrentState => _currentState;
 
-        public event Action<BaseState> OnStateChanged; 
+        public event Action<BaseState, string> OnStateChanged; 
         
         public void SetStates(Dictionary<Type, BaseState> states)
         {
@@ -41,7 +41,7 @@ namespace fsm
             _currentState.ExitState();
             
             _currentState = _availableStates[nextState];
-            OnStateChanged?.Invoke(_currentState);
+            OnStateChanged?.Invoke(_currentState, gameObject.name);
             
             _currentState.EnterState();
         }

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1358904186308120711}
   - component: {fileID: 8142668572145718325}
   - component: {fileID: 5652149376503753842}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 7216103867248173193}
   - component: {fileID: 5254124618029195719}
   - component: {fileID: 8968856795478089790}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bad Guy Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -203,6 +203,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _team: 1
+  _attackStrategy: 0
   _projectilePrefab: {fileID: 0}
   _projectilePrefabLaunchTransform: {fileID: 0}
   _flashLight: {fileID: 8142668572145718325}

@@ -64,7 +64,7 @@ namespace fsm.states
             while (IsPathBlocked())
             {
                 FindRandomDestination();
-                Debug.Log("WALL!");
+                // Debug.Log("WALL!");
             }
 
             return null;
@@ -80,7 +80,7 @@ namespace fsm.states
             RaycastHit hit;
             var angle = _transform.rotation * _startingAngle;
             var direction = angle * Vector3.forward;
-            var pos = _transform.position;
+            var pos = _transform.position + Vector3.up;
             for (var i = 0; i < 40; i++)
             {
                 if (Physics.Raycast(pos, direction, out hit, aggroRadius))
@@ -116,7 +116,7 @@ namespace fsm.states
             Ray ray = new Ray(_transform.position, _direction);
             bool pathBlocked = Physics.SphereCast(ray, 0.5f, GameSettings.ForwardLookAhead, _layerMask);
 
-            Debug.Log($"Path blocked for {_gameObject.name}: {pathBlocked}");
+            // Debug.Log($"Path blocked for {_gameObject.name}: {pathBlocked}");
             return pathBlocked;
         }
 
@@ -135,7 +135,7 @@ namespace fsm.states
             _direction = new Vector3(_direction.x, 0f, _direction.z);
 
             _desiredRotation = Quaternion.LookRotation(_direction);
-            Debug.Log("Got direction.");
+            // Debug.Log("Got direction.");
         }
 
         public override string GetStateName()

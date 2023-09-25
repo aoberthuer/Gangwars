@@ -3,15 +3,23 @@ using UnityEngine.SceneManagement;
 
 namespace ui
 {
+    public class ButtonHandler : MonoBehaviour
+    {
+        
 #if UNITY_WEBPLAYER
         private static string _webQuitURL = "https://www.google.com";
 #endif
-    
-    public class ButtonHandler : MonoBehaviour
-    {
+
+        [SerializeField] private GameObject _consoleWindow;
+        
         public void ReloadLevel()
         {
             SceneManager.LoadScene(0);
+        }
+
+        public void ToggleConsole()
+        {
+            _consoleWindow.SetActive(!_consoleWindow.activeSelf);
         }
 
         public void ExitGame()
