@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: d3a534ab90821184a8d7278d9a7f436d
+timeCreated: 1548830092
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 26688
+  packageName: 'PISTOL Basic: MoCap Animation Pack'
+  packageVersion: V2.7A2
+  assetPath: Assets/AssetStore/Pistol 27A2 Basic/Animation/Root_Motion/Materials/MCG_diff.mat
+  uploadId: 332207
